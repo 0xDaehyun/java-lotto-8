@@ -28,19 +28,19 @@ class AmountValidationTest {
 
         @ParameterizedTest(name = "천원 미만(경계 포함): {0}")
         @CsvSource({"0", "-1", "-100"})
-        void throwsIfBelowMin(long amount) {
+        void throwsIfBelowMin(Long amount) {
             assertInvalid(amount);
         }
 
         @ParameterizedTest(name = "천원 단위 아님: {0}")
         @CsvSource({"1", "999", "1500", "12345"})
-        void throwsIfNotThousandStep(long amount) {
+        void throwsIfNotThousandStep(Long amount) {
             assertInvalid(amount);
         }
 
         @ParameterizedTest(name = "정상 입력: {0}")
         @CsvSource({"1000", "8000", "123000"})
-        void passesIfValid(long amount) {
+        void passesIfValid(Long amount) {
             assertThatCode(() -> AmountValidation.validation(amount))
                     .doesNotThrowAnyException();
         }
